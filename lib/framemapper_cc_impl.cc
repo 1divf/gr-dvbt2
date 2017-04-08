@@ -2149,19 +2149,18 @@
      for (int i = 0; i < mapped_items - stream_items - 1840 - (N_post / eta_mod) - (N_FC - C_FC); i++)
      {
          int b = ((sr) ^ (sr >> 1)) & 1;
+ #if __cplusplus <= 199711L
          if (b)
- #if __cplusplus <= 199711L
              dummy_randomize[i].real() = -1.0;
- #else
-             dummy_randomize[i].real(-1.0);
- #endif
          else
- #if __cplusplus <= 199711L
              dummy_randomize[i].real() = 1.0;
-             dummy_randomize[i].imag() = 0.0;
+         dummy_randomize[i].imag() = 0.0;
  #else
+         if (b)
+             dummy_randomize[i].real(-1.0);
+         else
              dummy_randomize[i].real(1.0);
-             dummy_randomize[i].imag(0.0);
+         dummy_randomize[i].imag(0.0);
  #endif
          sr >>= 1;
          if(b) sr |= 0x4000;
